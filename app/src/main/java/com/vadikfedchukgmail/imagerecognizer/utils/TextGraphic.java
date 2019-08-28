@@ -11,8 +11,8 @@ public class TextGraphic extends GraphicOverlay.Graphic {
 
     private static final int TEXT_COLOR = Color.RED;
     private static final int TEXT_COLOR_INPUT = Color.GREEN;
-    private static final float TEXT_SIZE = 54.0f;
-    private static final float STROKE_WIDTH = 4.0f;
+    private static final float TEXT_SIZE = 40.0f;
+    private static final float STROKE_WIDTH = 1.0f;
 
     private final Paint rectPaint;
     private final Paint textPaint;
@@ -46,13 +46,9 @@ public class TextGraphic extends GraphicOverlay.Graphic {
         if (element == null) {
             throw new IllegalStateException("Attempting to draw a null text.");
         }
-        //float w = textPaint.measureText(s)/2;
-        float textSize = textPaint.getTextSize();
-        // Draws the bounding box around the TextBlock.
+
         RectF rect = new RectF(element.getBoundingBox());
         canvas.drawRect(rect, rectPaint);
-
-        // Renders the text at the bottom of the box.
         canvas.drawText(element.getText(), rect.left, rect.bottom, textPaint);
     }
 }

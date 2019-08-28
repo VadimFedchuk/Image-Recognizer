@@ -11,4 +11,6 @@
     <string name="error_recognize">Произошла ошибка распознавания</string>
     <string name="empty_text_on_image">На картинке текст не найден</string>
     <string name="error_permission_camera">Нету разрешения для использования камеры</string>
+    <string name="content_description">image_content</string>
+    <string name="error_access_camera">На устройстве не обнаружена камера</string>
 </resources>

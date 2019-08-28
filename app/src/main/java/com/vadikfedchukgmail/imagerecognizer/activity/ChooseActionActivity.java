@@ -1,10 +1,5 @@
 package com.vadikfedchukgmail.imagerecognizer.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +9,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.vadikfedchukgmail.imagerecognizer.R;
 
@@ -65,6 +63,7 @@ public class ChooseActionActivity extends AppCompatActivity {
         }
     }
 
+    // запуск встроенной камеры
     private void takePhoto() {
         String fileName = System.currentTimeMillis() + ".jpg";
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -72,6 +71,9 @@ public class ChooseActionActivity extends AppCompatActivity {
         takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePhotoIntent, REQUEST_CAMERA);
+        } else {
+            Toast.makeText(this, getString(R.string.error_access_camera),
+                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -97,6 +99,7 @@ public class ChooseActionActivity extends AppCompatActivity {
         }
     }
 
+    // получение Uri из пути картинки
     private Uri getCacheImagePath(String fileName) {
         File path = new File(getExternalCacheDir(), "camera");
         if (!path.exists()) path.mkdirs();
@@ -104,6 +107,7 @@ public class ChooseActionActivity extends AppCompatActivity {
         return getUriForFile(this, getPackageName() + ".provider", image);
     }
 
+    // запуск RecognizeImageActivity с параметром Uri выбранной картинки
     private void startRecognizeImageActivity(Uri uri) {
         Intent intent = new Intent(this, RecognizeImageActivity.class);
         intent.putExtra("imageUri", uri);

@@ -2,10 +2,10 @@ package com.vadikfedchukgmail.imagerecognizer.activity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,8 +19,9 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-import com.vadikfedchukgmail.imagerecognizer.utils.GraphicOverlay;
 import com.vadikfedchukgmail.imagerecognizer.R;
+import com.vadikfedchukgmail.imagerecognizer.utils.GraphicOverlay;
+import com.vadikfedchukgmail.imagerecognizer.utils.ResizeImage;
 import com.vadikfedchukgmail.imagerecognizer.utils.TextGraphic;
 
 import java.util.List;
@@ -28,7 +29,6 @@ import java.util.List;
 public class RecognizeImageActivity extends AppCompatActivity {
 
     private EditText editSearch;
-    private ImageButton actionSearch;
     private ImageView imageContent;
     private GraphicOverlay mGraphicOverlay;
     private Uri selectedImageUri;
@@ -47,17 +47,21 @@ public class RecognizeImageActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.action_search);
 
-        mGraphicOverlay = findViewById(R.id.graphic_overlay);
         imageContent = findViewById(R.id.image_content);
-        imageContent.setImageURI(selectedImageUri);
+        imageContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                imageContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mSelectedImage = ResizeImage.resizeSelectedImage(getApplicationContext(), selectedImageUri,
+                        imageContent.getWidth(), imageContent.getHeight());
+                imageContent.setImageBitmap(mSelectedImage);
+            }
+        });
+        mGraphicOverlay = findViewById(R.id.graphic_overlay);
         editSearch = toolbar.findViewById(R.id.edit_search);
 
-        BitmapDrawable drawable = (BitmapDrawable) imageContent.getDrawable();
-        mSelectedImage = drawable.getBitmap();
-
-        actionSearch = toolbar.findViewById(R.id.action_search);
+        ImageButton actionSearch = toolbar.findViewById(R.id.action_search);
         actionSearch.setOnClickListener(view -> {
             startRecognize(editSearch.getText().toString().trim());
             hideKeyboard(view);
@@ -97,7 +101,7 @@ public class RecognizeImageActivity extends AppCompatActivity {
     }
 
     private void hideKeyboard(View view) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
