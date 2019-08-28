@@ -11,7 +11,7 @@ public class TextGraphic extends GraphicOverlay.Graphic {
 
     private static final int TEXT_COLOR = Color.RED;
     private static final int TEXT_COLOR_INPUT = Color.GREEN;
-    private static final float TEXT_SIZE = 40.0f;
+    private static final float TEXT_SIZE = 30.0f;
     private static final float STROKE_WIDTH = 1.0f;
 
     private final Paint rectPaint;
