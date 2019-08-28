@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "911704024246",
+    "firebase_url": "https://image-recognizer-a7bb4.firebaseio.com",
+    "project_id": "image-recognizer-a7bb4",
+    "storage_bucket": "image-recognizer-a7bb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911704024246:android:e6ace240cb8a0118",
+        "android_client_info": {
+          "package_name": "com.vadikfedchukgmail.imagerecognizer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911704024246-6ah7345b3e6e4jebbi21jhspc3t1co5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHc_rSwfvZ8RR1gCvoPMhU5JhqXaC1YRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911704024246-6ah7345b3e6e4jebbi21jhspc3t1co5h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
