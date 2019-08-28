@@ -13,7 +13,7 @@ import androidx.exifinterface.media.ExifInterface;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ResizeImage {
+public class BitmapCreater {
 
 
     //  создание объекта Bitmap из Uri, если фото было сделано с измененной ориентацией,

@@ -20,7 +20,7 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.vadikfedchukgmail.imagerecognizer.R;
 import com.vadikfedchukgmail.imagerecognizer.utils.GraphicOverlay;
-import com.vadikfedchukgmail.imagerecognizer.utils.ResizeImage;
+import com.vadikfedchukgmail.imagerecognizer.utils.BitmapCreater;
 import com.vadikfedchukgmail.imagerecognizer.utils.TextGraphic;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class RecognizeImageActivity extends AppCompatActivity {
             @Override
             public void onGlobalLayout() {
                 imageContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                mSelectedImage = ResizeImage.resizeSelectedImage(getApplicationContext(), selectedImageUri,
+                mSelectedImage = BitmapCreater.resizeSelectedImage(getApplicationContext(), selectedImageUri,
                         imageContent.getWidth(), imageContent.getHeight());
                 imageContent.setImageBitmap(mSelectedImage);
             }
